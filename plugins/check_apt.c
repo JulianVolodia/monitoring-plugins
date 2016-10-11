@@ -102,11 +102,14 @@ int main (int argc, char **argv) {
 	/* handle timeouts gracefully... */
 	alarm (timeout_interval);
 
-	/* if they want to run apt-get update first... */
-	if(do_update) result = run_update();
-
-	/* apt-get upgrade */
-	result = max_state(result, run_upgrade(&packages_available, &sec_count));
+	if(do_update) {
+		/* if they want to run apt-get update first... */
+		result = run_update();
+		result = max_state(result, run_upgrade(&packages_available, &sec_count));
+	} else {
+		/* apt-get upgrade */
+		result = run_upgrade(&packages_available, &sec_count);
+	}
 
 	if(sec_count > 0){
 		result = max_state(result, STATE_CRITICAL);
