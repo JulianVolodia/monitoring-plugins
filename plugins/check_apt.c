@@ -163,7 +163,7 @@ int process_arguments (int argc, char **argv) {
 			exit(STATE_UNKNOWN);
 		case 'V':
 			print_revision(progname, NP_VERSION);
-			exit(STATE_UNKNOWN);
+			exit(STATE_OK);
 		case 'v':
 			verbose++;
 			break;
@@ -209,6 +209,7 @@ int process_arguments (int argc, char **argv) {
 		default:
 			/* print short usage statement if args not parsable */
 			usage5();
+			exit(STATE_UNKNOWN);
 		}
 	}
 
